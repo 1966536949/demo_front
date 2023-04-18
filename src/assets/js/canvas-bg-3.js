@@ -25,7 +25,7 @@ export default function canvasBg() {
         this.updateDist();
     }
 
-    line.prototype.step = function(i) {
+    line.prototype.step = function (i) {
         this.x += Math.cos(this.angle) * this.speed;
         this.y += Math.sin(this.angle) * this.speed;
 
@@ -53,19 +53,19 @@ export default function canvasBg() {
         }
     };
 
-    line.prototype.updateDist = function() {
+    line.prototype.updateDist = function () {
         var dx = this.target.x - this.x,
             dy = this.target.y - this.y;
         this.dist = Math.sqrt(dx * dx + dy * dy);
     }
 
-    line.prototype.updateAngle = function() {
+    line.prototype.updateAngle = function () {
         var dx = this.target.x - this.x,
             dy = this.target.y - this.y;
         this.angle = Math.atan2(dy, dx);
     }
 
-    line.prototype.changeTarget = function() {
+    line.prototype.changeTarget = function () {
         var randStart = randInt(0, 3);
         switch (randStart) {
             case 0: // up
@@ -83,7 +83,7 @@ export default function canvasBg() {
         this.updateAngle();
     };
 
-    line.prototype.draw = function(i) {
+    line.prototype.draw = function (i) {
         ctx.beginPath();
         var rando = rand(0, 10);
         for (var j = 0, length = this.path.length; j < length; j++) {

@@ -1,9 +1,9 @@
 <template>
   <div class="content">
-    <img class="backgroud" src="@/assets/img/404.png" alt>
+    <img alt class="backgroud" src="@/assets/img/404.png">
     <div class="text main-text">出错了...页面失踪了</div>
     <div>
-      <el-button class="text" @click="back()" type="text" icon="el-icon-back">返回</el-button>
+      <el-button class="text" icon="el-icon-back" type="text" @click="back()">返回</el-button>
     </div>
   </div>
 </template>
@@ -27,15 +27,18 @@ export default {
   height: 100%;
   min-height: 900px;
   text-align: center;
+
   .backgroud {
     display: inline-block;
     width: 200px;
     height: 200px;
     margin-top: 80px;
   }
-  .main-text{
+
+  .main-text {
     margin-top: 80px;
   }
+
   .text {
     font-size: 24px;
     font-weight: bold;

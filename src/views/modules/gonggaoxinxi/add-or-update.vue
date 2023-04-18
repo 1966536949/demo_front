@@ -1,18 +1,18 @@
 <template>
   <div class="addEdit-block">
     <el-form
-        class="detail-form-content"
         ref="ruleForm"
         :model="ruleForm"
         :rules="rules"
-        label-width="80px"
         :style="{backgroundColor:addEditForm.addEditBoxColor}"
+        class="detail-form-content"
+        label-width="80px"
     >
       <el-row>
         <el-col :span="12">
-          <el-form-item class="input" v-if="type!='info'" label="公告标题" prop="gonggaobiaoti">
+          <el-form-item v-if="type!='info'" class="input" label="公告标题" prop="gonggaobiaoti">
             <el-input v-model="ruleForm.gonggaobiaoti"
-                      placeholder="公告标题" clearable :readonly="ro.gonggaobiaoti"></el-input>
+                      :readonly="ro.gonggaobiaoti" clearable placeholder="公告标题"></el-input>
           </el-form-item>
           <div v-else>
             <el-form-item class="input" label="公告标题" prop="gonggaobiaoti">
@@ -22,8 +22,8 @@
           </div>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="select" v-if="type!='info'" label="公告类型" prop="gonggaoleixing">
-            <el-select :disabled="ro.gonggaoleixing" v-model="ruleForm.gonggaoleixing" placeholder="请选择公告类型">
+          <el-form-item v-if="type!='info'" class="select" label="公告类型" prop="gonggaoleixing">
+            <el-select v-model="ruleForm.gonggaoleixing" :disabled="ro.gonggaoleixing" placeholder="请选择公告类型">
               <el-option
                   v-for="(item,index) in gonggaoleixingOptions"
                   v-bind:key="index"
@@ -40,37 +40,37 @@
           </div>
         </el-col>
         <el-col :span="24">
-          <el-form-item class="upload" v-if="type!='info' && !ro.gonggaotupian" label="公告图片" prop="gonggaotupian">
+          <el-form-item v-if="type!='info' && !ro.gonggaotupian" class="upload" label="公告图片" prop="gonggaotupian">
             <file-upload
-                tip="点击上传公告图片"
-                action="file/upload"
+                :fileUrls="ruleForm.gonggaotupian?ruleForm.gonggaotupian:''"
                 :limit="3"
                 :multiple="true"
-                :fileUrls="ruleForm.gonggaotupian?ruleForm.gonggaotupian:''"
+                action="file/upload"
+                tip="点击上传公告图片"
                 @change="gonggaotupianUploadChange"
             ></file-upload>
           </el-form-item>
           <div v-else>
             <el-form-item v-if="ruleForm.gonggaotupian" label="公告图片" prop="gonggaotupian">
-              <img style="margin-right:20px;" v-bind:key="index"
-                   v-for="(item,index) in ruleForm.gonggaotupian.split(',')" :src="$base.url+item" width="100"
-                   height="100">
+              <img v-for="(item,index) in ruleForm.gonggaotupian.split(',')" v-bind:key="index"
+                   :src="$base.url+item" height="100" style="margin-right:20px;"
+                   width="100">
             </el-form-item>
           </div>
         </el-col>
         <el-col :span="12">
-          <el-form-item class="date" v-if="type!='info'" label="发布日期" prop="faburiqi">
+          <el-form-item v-if="type!='info'" class="date" label="发布日期" prop="faburiqi">
             <el-date-picker
-                format="yyyy 年 MM 月 dd 日"
-                value-format="yyyy-MM-dd"
                 v-model="ruleForm.faburiqi"
-                type="date"
                 :readonly="ro.faburiqi"
-                placeholder="发布日期">
+                format="yyyy 年 MM 月 dd 日"
+                placeholder="发布日期"
+                type="date"
+                value-format="yyyy-MM-dd">
             </el-date-picker>
           </el-form-item>
           <div v-else>
-            <el-form-item class="input" v-if="ruleForm.faburiqi" label="发布日期" prop="faburiqi">
+            <el-form-item v-if="ruleForm.faburiqi" class="input" label="发布日期" prop="faburiqi">
               <el-input v-model="ruleForm.faburiqi"
                         placeholder="发布日期" readonly></el-input>
             </el-form-item>
@@ -81,10 +81,10 @@
         <el-col :span="24">
           <el-form-item v-if="type!='info'" label="公告内容" prop="gonggaoneirong">
             <editor
-                style="min-width: 200px; max-width: 600px;"
                 v-model="ruleForm.gonggaoneirong"
+                action="file/upload"
                 class="editor"
-                action="file/upload">
+                style="min-width: 200px; max-width: 600px;">
             </editor>
           </el-form-item>
           <div v-else>
@@ -95,7 +95,7 @@
         </el-col>
       </el-row>
       <el-form-item class="btn">
-        <el-button v-if="type!='info'" type="primary" class="btn-success" @click="onSubmit">提交</el-button>
+        <el-button v-if="type!='info'" class="btn-success" type="primary" @click="onSubmit">提交</el-button>
         <el-button v-if="type!='info'" class="btn-close" @click="back()">取消</el-button>
         <el-button v-if="type=='info'" class="btn-close" @click="back()">返回</el-button>
       </el-form-item>
@@ -106,7 +106,7 @@
 </template>
 <script>
 // 数字，邮件，手机，url，身份证校验
-import {isNumber, isIntNumer, isEmail, isPhone, isMobile, isURL, checkIdCard} from "@/utils/validate";
+import {checkIdCard, isEmail, isIntNumer, isMobile, isNumber, isPhone, isURL} from "@/utils/validate";
 
 export default {
   data() {
